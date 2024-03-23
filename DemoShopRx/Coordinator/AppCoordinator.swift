@@ -22,6 +22,19 @@ class AppCoordinator: Coordinator {
     func start() {
         let viewModel = ShopListViewModel(environment: environment)
         let viewController = ShopListViewController(viewModel: viewModel)
+        viewController.delegate = self
         navigationController.pushViewController(viewController, animated: false)
+    }
+
+    func toDetail(item: ShopItem) {
+        let viewModel = ItemDetailViewModel(environment: environment, item: item)
+        let viewController = ItemDetailViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension AppCoordinator: ShopListViewControllerDelegate {
+    func shopListDidTapItem(item: ShopItem) {
+        toDetail(item: item)
     }
 }

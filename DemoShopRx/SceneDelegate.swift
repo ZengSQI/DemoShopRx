@@ -11,6 +11,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    var appCoorninator: AppCoordinator?
+
     var environment: Environment = Environment(
         // service: AppService()
         service: MockService()
@@ -21,8 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(windowScene: windowScene)
         let navigationViewController = UINavigationController()
-        let coordinator = AppCoordinator(navigationController: navigationViewController, environment: environment)
-        coordinator.start()
+        appCoorninator = AppCoordinator(navigationController: navigationViewController, environment: environment)
+        appCoorninator?.start()
         window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()
     }

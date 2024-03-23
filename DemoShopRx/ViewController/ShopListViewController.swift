@@ -9,6 +9,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+protocol ShopListViewControllerDelegate: AnyObject {
+    func shopListDidTapItem(item: ShopItem)
+}
+
 class ShopListViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -40,6 +44,8 @@ class ShopListViewController: UIViewController {
     private var viewModel: ShopListViewModel!
     private var disposeBag = DisposeBag()
 
+    weak var delegate: ShopListViewControllerDelegate?
+
     convenience init(viewModel: ShopListViewModel) {
         self.init()
         self.viewModel = viewModel
@@ -67,6 +73,14 @@ class ShopListViewController: UIViewController {
         output.list
             .bind(to: collectionView.rx.items(cellIdentifier: "ShopListCollectionViewCell", cellType: ShopListCollectionViewCell.self)) { index, model, cell in
                 cell.bind(item: model)
+            }
+            .disposed(by: disposeBag)
+
+        collectionView.rx
+            .modelSelected(ShopItem.self)
+            .withUnretained(self)
+            .subscribe { owner, item in
+                owner.delegate?.shopListDidTapItem(item: item)
             }
             .disposed(by: disposeBag)
     }

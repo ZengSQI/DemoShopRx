@@ -9,6 +9,8 @@ target 'DemoShopRx' do
   pod 'RxSwift', '6.6.0'
   pod 'RxCocoa', '6.6.0'
   pod 'SnapKit', '~> 5.7.0'
+  pod 'RxViewController'
+  pod 'RxSwiftExt'
 
   target 'DemoShopRxTests' do
     inherit! :search_paths
