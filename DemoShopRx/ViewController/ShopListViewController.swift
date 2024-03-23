@@ -8,9 +8,11 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxViewController
 
 protocol ShopListViewControllerDelegate: AnyObject {
     func shopListDidTapItem(item: ShopItem)
+    func shopListDidTapCart()
 }
 
 class ShopListViewController: UIViewController {
@@ -41,6 +43,11 @@ class ShopListViewController: UIViewController {
         return layout
     }()
 
+    private lazy var cartButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "cart.fill"), style: .plain, target: nil, action: nil)
+        return item
+    }()
+
     private var viewModel: ShopListViewModel!
     private var disposeBag = DisposeBag()
 
@@ -63,11 +70,16 @@ class ShopListViewController: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        navigationItem.rightBarButtonItems = [cartButton]
     }
 
     private func bindViewModel() {
         let output = viewModel.transform(
-            input: ShopListViewModel.Input(load: .just(()))
+            input: ShopListViewModel.Input(
+                load: rx.viewWillAppear
+                    .map { _ in Void() }
+                    .asDriver(onErrorJustReturn: ())
+            )
         )
 
         output.list
@@ -81,6 +93,13 @@ class ShopListViewController: UIViewController {
             .withUnretained(self)
             .subscribe { owner, item in
                 owner.delegate?.shopListDidTapItem(item: item)
+            }
+            .disposed(by: disposeBag)
+
+        cartButton.rx.tap
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                owner.delegate?.shopListDidTapCart()
             }
             .disposed(by: disposeBag)
     }

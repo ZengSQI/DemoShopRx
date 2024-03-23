@@ -31,10 +31,20 @@ class AppCoordinator: Coordinator {
         let viewController = ItemDetailViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
+
+    func toCart() {
+        let viewModel = CartViewModel(environment: environment)
+        let viewController = CartViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
 }
 
 extension AppCoordinator: ShopListViewControllerDelegate {
     func shopListDidTapItem(item: ShopItem) {
         toDetail(item: item)
+    }
+
+    func shopListDidTapCart() {
+        toCart()
     }
 }
