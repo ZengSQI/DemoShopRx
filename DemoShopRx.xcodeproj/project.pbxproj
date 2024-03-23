@@ -21,6 +21,8 @@
 		AD47F7672BADAF8600AA5615 /* HistoryOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD47F7662BADAF8600AA5615 /* HistoryOrder.swift */; };
 		AD47F76A2BAE7B1900AA5615 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD47F7692BAE7B1900AA5615 /* Environment.swift */; };
 		AD47F76C2BAE7B2D00AA5615 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD47F76B2BAE7B2D00AA5615 /* Service.swift */; };
+		AD47F76F2BAE7ECE00AA5615 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD47F76E2BAE7ECE00AA5615 /* Coordinator.swift */; };
+		AD47F7712BAE7EE900AA5615 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD47F7702BAE7EE900AA5615 /* AppCoordinator.swift */; };
 		D5046D499B5475710838CE3C /* Pods_DemoShopRxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF5BABEFE0C9CEE3206F07E /* Pods_DemoShopRxTests.framework */; };
 		EAD9941423F0AB526FAB5F8A /* Pods_DemoShopRx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B84FEB4B644F8B51D7C91E7 /* Pods_DemoShopRx.framework */; };
 /* End PBXBuildFile section */
@@ -68,6 +70,8 @@
 		AD47F7662BADAF8600AA5615 /* HistoryOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryOrder.swift; sourceTree = "<group>"; };
 		AD47F7692BAE7B1900AA5615 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		AD47F76B2BAE7B2D00AA5615 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		AD47F76E2BAE7ECE00AA5615 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		AD47F7702BAE7EE900AA5615 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D6F88FEACCC6A48E5DB5338A /* Pods-DemoShopRx.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoShopRx.debug.xcconfig"; path = "Target Support Files/Pods-DemoShopRx/Pods-DemoShopRx.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				AD47F7682BAE7B0600AA5615 /* Environment */,
+				AD47F76D2BAE7EB800AA5615 /* Coordinator */,
 				AD47F7312BADA77C00AA5615 /* AppDelegate.swift */,
 				AD47F7332BADA77C00AA5615 /* SceneDelegate.swift */,
 				AD47F7352BADA77C00AA5615 /* ViewController.swift */,
@@ -193,6 +198,15 @@
 				AD47F76B2BAE7B2D00AA5615 /* Service.swift */,
 			);
 			path = Environment;
+			sourceTree = "<group>";
+		};
+		AD47F76D2BAE7EB800AA5615 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				AD47F76E2BAE7ECE00AA5615 /* Coordinator.swift */,
+				AD47F7702BAE7EE900AA5615 /* AppCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -453,12 +467,14 @@
 			files = (
 				AD47F7362BADA77C00AA5615 /* ViewController.swift in Sources */,
 				AD47F76C2BAE7B2D00AA5615 /* Service.swift in Sources */,
+				AD47F7712BAE7EE900AA5615 /* AppCoordinator.swift in Sources */,
 				AD47F7672BADAF8600AA5615 /* HistoryOrder.swift in Sources */,
 				AD47F7322BADA77C00AA5615 /* AppDelegate.swift in Sources */,
 				AD47F76A2BAE7B1900AA5615 /* Environment.swift in Sources */,
 				AD47F7632BADAF6A00AA5615 /* ShopItem.swift in Sources */,
 				AD47F7652BADAF7800AA5615 /* CartItem.swift in Sources */,
 				AD47F7342BADA77C00AA5615 /* SceneDelegate.swift in Sources */,
+				AD47F76F2BAE7ECE00AA5615 /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
