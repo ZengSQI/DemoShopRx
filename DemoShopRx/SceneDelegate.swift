@@ -11,13 +11,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    var environment: Environment = Environment(
+        // service: AppService()
+        service: MockService()
+    )
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(windowScene: windowScene)
         let navigationViewController = UINavigationController()
-        let coordinator = AppCoordinator(navigationController: navigationViewController)
+        let coordinator = AppCoordinator(navigationController: navigationViewController, environment: environment)
         coordinator.start()
         window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()

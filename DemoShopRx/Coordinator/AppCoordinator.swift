@@ -12,12 +12,16 @@ class AppCoordinator: Coordinator {
 
     var navigationController: UINavigationController
 
-    init(navigationController: UINavigationController) {
+    private var environment: Environment
+
+    init(navigationController: UINavigationController, environment: Environment) {
         self.navigationController = navigationController
+        self.environment = environment
     }
 
     func start() {
-        let viewController = ViewController()
+        let viewModel = ShopListViewModel(environment: environment)
+        let viewController = ShopListViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: false)
     }
 }
