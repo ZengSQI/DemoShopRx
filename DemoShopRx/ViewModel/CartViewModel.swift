@@ -16,6 +16,7 @@ class CartViewModel: ViewModelType {
 
     struct Output {
         let items: BehaviorRelay<[(CartItem, Bool)]>
+        let selectedItems: BehaviorRelay<[CartItem]>
         let purchaseEnable: BehaviorRelay<Bool>
     }
 
@@ -29,7 +30,8 @@ class CartViewModel: ViewModelType {
 
     func transform(input: Input) -> Output {
         let cardItemsRelay = BehaviorRelay<[CartItem]>(value: [])
-        let selectedItemsRelay = BehaviorRelay<Set<CartItem>>(value: selectedItems)
+        let selectedItemsSetRelay = BehaviorRelay<Set<CartItem>>(value: selectedItems)
+        let selectedItemsRelay = BehaviorRelay<[CartItem]>(value: [])
         let itemsRelay = BehaviorRelay<[(CartItem, Bool)]>(value: [])
         let purchaseEnableRelay = BehaviorRelay<Bool>(value: false)
 
@@ -49,23 +51,29 @@ class CartViewModel: ViewModelType {
                 owner.selectedItems.formSymmetricDifference([item])
                 return owner.selectedItems
             }
-            .bind(to: selectedItemsRelay)
+            .bind(to: selectedItemsSetRelay)
             .disposed(by: disposeBag)
 
-        Observable.combineLatest(cardItemsRelay, selectedItemsRelay)
+        Observable.combineLatest(cardItemsRelay, selectedItemsSetRelay)
             .map { items, seletedItems in
                 items.compactMap { ($0, seletedItems.contains($0)) }
             }
             .bind(to: itemsRelay)
             .disposed(by: disposeBag)
 
-        selectedItemsRelay
+        itemsRelay
+            .map { $0.filter { $0.1 }.map { $0.0 } }
+            .bind(to: selectedItemsRelay)
+            .disposed(by: disposeBag)
+
+        selectedItemsSetRelay
             .map { !$0.isEmpty }
             .bind(to: purchaseEnableRelay)
             .disposed(by: disposeBag)
 
         return Output(
             items: itemsRelay,
+            selectedItems: selectedItemsRelay,
             purchaseEnable: purchaseEnableRelay
         )
     }

@@ -6,9 +6,14 @@
 //
 
 import UIKit
+import RxSwiftExt
 import RxSwift
 import RxCocoa
 import RxViewController
+
+protocol ItemDetailViewControllerDelegate: AnyObject {
+    func itemDetailDidTapPurchase(item: ShopItem)
+}
 
 class ItemDetailViewController: UIViewController {
     private lazy var scrollView: UIScrollView = {
@@ -95,6 +100,8 @@ class ItemDetailViewController: UIViewController {
     private var viewModel: ItemDetailViewModel!
     private var disposeBag = DisposeBag()
 
+    weak var delegate: ItemDetailViewControllerDelegate?
+
     convenience init(viewModel: ItemDetailViewModel) {
         self.init()
         self.viewModel = viewModel
@@ -140,9 +147,6 @@ class ItemDetailViewController: UIViewController {
     private func bindViewModel() {
         let output = viewModel.transform(
             input: ItemDetailViewModel.Input(
-                load: rx.viewWillAppear
-                    .map { _ in Void() }
-                    .asDriver(onErrorJustReturn: ()),
                 addToCart: addToCartButton.rx.tap
                     .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
                     .asDriver(onErrorJustReturn: ())
@@ -160,6 +164,14 @@ class ItemDetailViewController: UIViewController {
             .withUnretained(self)
             .subscribe { owner, _ in
                 owner.showAddedToCartAlert()
+            }
+            .disposed(by: disposeBag)
+
+        purchaseButton.rx.tap
+            .withLatestFrom(output.item)
+            .withUnretained(self)
+            .subscribe { owner, item in
+                owner.delegate?.itemDetailDidTapPurchase(item: item)
             }
             .disposed(by: disposeBag)
     }

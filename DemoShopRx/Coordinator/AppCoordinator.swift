@@ -29,13 +29,26 @@ class AppCoordinator: Coordinator {
     func toDetail(item: ShopItem) {
         let viewModel = ItemDetailViewModel(environment: environment, item: item)
         let viewController = ItemDetailViewController(viewModel: viewModel)
+        viewController.delegate = self
         navigationController.pushViewController(viewController, animated: true)
     }
 
     func toCart() {
         let viewModel = CartViewModel(environment: environment)
         let viewController = CartViewController(viewModel: viewModel)
+        viewController.delegate = self
         navigationController.pushViewController(viewController, animated: true)
+    }
+
+    func toConfirmOrder(items: [CartItem]) {
+        let viewModel = ConfirmOrderViewModel(environment: environment, items: items)
+        let viewController = ConfirmOrderViewController(viewModel: viewModel)
+        viewController.delegate = self
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
+    func popToRoot() {
+        navigationController.popToRootViewController(animated: true)
     }
 }
 
@@ -46,5 +59,23 @@ extension AppCoordinator: ShopListViewControllerDelegate {
 
     func shopListDidTapCart() {
         toCart()
+    }
+}
+
+extension AppCoordinator: ItemDetailViewControllerDelegate {
+    func itemDetailDidTapPurchase(item: ShopItem) {
+        toConfirmOrder(items: [CartItem(item: item)])
+    }
+}
+
+extension AppCoordinator: CartViewControllerDelegate {
+    func cartDidTapPurchase(items: [CartItem]) {
+        toConfirmOrder(items: items)
+    }
+}
+
+extension AppCoordinator: ConfirmOrderViewControllerDelegate {
+    func confirmOrderComplete() {
+        popToRoot()
     }
 }

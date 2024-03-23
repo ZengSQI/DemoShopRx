@@ -10,12 +10,11 @@ import RxSwift
 
 class ItemDetailViewModel: ViewModelType {
     struct Input {
-        let load: Driver<Void>
         let addToCart: Driver<Void>
     }
 
     struct Output {
-        let item: PublishRelay<ShopItem>
+        let item: BehaviorRelay<ShopItem>
         let added: PublishRelay<Void>
     }
 
@@ -29,15 +28,8 @@ class ItemDetailViewModel: ViewModelType {
     }
 
     func transform(input: Input) -> Output {
-        let itemRelay = PublishRelay<ShopItem>()
+        let itemRelay = BehaviorRelay<ShopItem>(value: item)
         let added = PublishRelay<Void>()
-
-        input.load
-            .asObservable()
-            .withUnretained(self)
-            .map { owner, _ in owner.item }
-            .bind(to: itemRelay)
-            .disposed(by: disposeBag)
 
         input.addToCart
             .asObservable()

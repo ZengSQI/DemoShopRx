@@ -10,10 +10,15 @@ import RxSwift
 import RxCocoa
 import RxViewController
 
+protocol CartViewControllerDelegate: AnyObject {
+    func cartDidTapPurchase(items: [CartItem])
+}
+
 class CartViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(CartItemTableViewCell.self, forCellReuseIdentifier: "CartItemTableViewCell")
+        tableView.estimatedRowHeight = 112
         tableView.contentInset.bottom = 92
         return tableView
     }()
@@ -27,6 +32,8 @@ class CartViewController: UIViewController {
 
     private var viewModel: CartViewModel!
     private var disposeBag = DisposeBag()
+
+    weak var delegate: CartViewControllerDelegate?
 
     convenience init(viewModel: CartViewModel) {
         self.init()
@@ -76,9 +83,10 @@ class CartViewController: UIViewController {
             .disposed(by: disposeBag)
 
         purchaseButton.rx.tap
+            .withLatestFrom(output.selectedItems)
             .withUnretained(self)
-            .subscribe { owner, _ in
-
+            .subscribe { owner, items in
+                owner.delegate?.cartDidTapPurchase(items: items)
             }
             .disposed(by: disposeBag)
     }

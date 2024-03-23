@@ -69,6 +69,7 @@ class MockService: Service {
     }
 
     func makeOrder(items: [CartItem]) -> Observable<HistoryOrder> {
+        cart.removeAll(where: { items.contains($0) })
         let order = HistoryOrder(items: items)
         historyOrders.append(
             order
