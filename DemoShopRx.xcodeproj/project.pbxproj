@@ -39,6 +39,7 @@
 		AD47F7902BAFDE1900AA5615 /* HistoryOrderSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD47F78F2BAFDE1900AA5615 /* HistoryOrderSupplementaryView.swift */; };
 		AD47F7922BAFDF9100AA5615 /* HistoryOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD47F7912BAFDF9100AA5615 /* HistoryOrderViewModel.swift */; };
 		AD47F7942BAFE83200AA5615 /* HistoryOrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD47F7932BAFE83200AA5615 /* HistoryOrderCollectionViewCell.swift */; };
+		AD47F7962BB075E200AA5615 /* TestMockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD47F7952BB075E200AA5615 /* TestMockService.swift */; };
 		D5046D499B5475710838CE3C /* Pods_DemoShopRxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF5BABEFE0C9CEE3206F07E /* Pods_DemoShopRxTests.framework */; };
 		EAD9941423F0AB526FAB5F8A /* Pods_DemoShopRx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B84FEB4B644F8B51D7C91E7 /* Pods_DemoShopRx.framework */; };
 /* End PBXBuildFile section */
@@ -104,6 +105,7 @@
 		AD47F78F2BAFDE1900AA5615 /* HistoryOrderSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryOrderSupplementaryView.swift; sourceTree = "<group>"; };
 		AD47F7912BAFDF9100AA5615 /* HistoryOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryOrderViewModel.swift; sourceTree = "<group>"; };
 		AD47F7932BAFE83200AA5615 /* HistoryOrderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryOrderCollectionViewCell.swift; sourceTree = "<group>"; };
+		AD47F7952BB075E200AA5615 /* TestMockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMockService.swift; sourceTree = "<group>"; };
 		D6F88FEACCC6A48E5DB5338A /* Pods-DemoShopRx.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoShopRx.debug.xcconfig"; path = "Target Support Files/Pods-DemoShopRx/Pods-DemoShopRx.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				AD47F7482BADA77D00AA5615 /* DemoShopRxTests.swift */,
+				AD47F7952BB075E200AA5615 /* TestMockService.swift */,
 			);
 			path = DemoShopRxTests;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD47F7492BADA77D00AA5615 /* DemoShopRxTests.swift in Sources */,
+				AD47F7962BB075E200AA5615 /* TestMockService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,7 +801,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4Z392RE4UH;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.redev.DemoShopRxTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -818,7 +822,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4Z392RE4UH;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.redev.DemoShopRxTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
