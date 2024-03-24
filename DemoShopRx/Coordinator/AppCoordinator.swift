@@ -47,6 +47,12 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(viewController, animated: true)
     }
 
+    func toHistoryOrder() {
+        let viewModel = HistoryOrderViewModel(environment: environment)
+        let viewController = HistoryOrderViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
     func popToRoot() {
         navigationController.popToRootViewController(animated: true)
     }
@@ -59,6 +65,10 @@ extension AppCoordinator: ShopListViewControllerDelegate {
 
     func shopListDidTapCart() {
         toCart()
+    }
+
+    func shopListDidTapHistory() {
+        toHistoryOrder()
     }
 }
 

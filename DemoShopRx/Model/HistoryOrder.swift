@@ -5,9 +5,16 @@
 //  Created by Steven Zeng on 2024/3/22.
 //
 
-import Foundation
+import RxDataSources
 
 struct HistoryOrder: Hashable, Equatable {
-    let id: UUID = .init()
-    let items: [CartItem]
+    var id: UUID = .init()
+    var items: [CartItem]
+}
+
+extension HistoryOrder: SectionModelType {
+    init(original: HistoryOrder, items: [CartItem]) {
+        self = original
+        self.items = items
+    }
 }
