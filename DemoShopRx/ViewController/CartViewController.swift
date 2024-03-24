@@ -5,10 +5,10 @@
 //  Created by Steven Zeng on 2024/3/23.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
 import RxViewController
+import UIKit
 
 protocol CartViewControllerDelegate: AnyObject {
     func cartDidTapPurchase(items: [CartItem])
@@ -63,7 +63,7 @@ class CartViewController: UIViewController {
         let output = viewModel.transform(
             input: CartViewModel.Input(
                 loadTrigger: rx.viewWillAppear
-                    .map { _ in Void() }
+                    .map { _ in () }
                     .asDriver(onErrorJustReturn: ()),
                 selectItem: tableView.rx
                     .modelSelected((CartItem, Bool).self)
@@ -73,7 +73,7 @@ class CartViewController: UIViewController {
         )
 
         output.items
-            .bind(to: tableView.rx.items(cellIdentifier: "CartItemTableViewCell", cellType: CartItemTableViewCell.self)) { row, model, cell in
+            .bind(to: tableView.rx.items(cellIdentifier: "CartItemTableViewCell", cellType: CartItemTableViewCell.self)) { _, model, cell in
                 cell.bind(item: model.0, isSelected: model.1)
             }
             .disposed(by: disposeBag)

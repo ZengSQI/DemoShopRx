@@ -37,7 +37,7 @@ class ItemDetailViewModel: ViewModelType {
             .flatMap { owner, _ in
                 owner.environment.service.addToCart(item: owner.item)
             }
-            .map { _ in Void() }
+            .map { _ in () }
             .bind(to: added)
             .disposed(by: disposeBag)
 

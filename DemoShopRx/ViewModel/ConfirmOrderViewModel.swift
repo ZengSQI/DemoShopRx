@@ -26,7 +26,6 @@ class ConfirmOrderViewModel: ViewModelType {
     init(environment: Environment, items: [CartItem]) {
         self.environment = environment
         self.items = items
-
     }
 
     func transform(input: Input) -> Output {
@@ -45,7 +44,7 @@ class ConfirmOrderViewModel: ViewModelType {
             .flatMapLatest { owner, _ in
                 owner.environment.service.makeOrder(items: owner.items)
             }
-            .map { _ in Void() }
+            .map { _ in () }
             .bind(to: orderCompleteRelay)
             .disposed(by: disposeBag)
 

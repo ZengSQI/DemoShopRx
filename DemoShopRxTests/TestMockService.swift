@@ -5,8 +5,8 @@
 //  Created by Steven Zeng on 2024/3/24.
 //
 
-import RxSwift
 @testable import DemoShopRx
+import RxSwift
 
 class TestMockService: Service {
     var list: [ShopItem] = []

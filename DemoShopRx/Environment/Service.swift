@@ -33,7 +33,7 @@ class AppService: Service {
         return .empty()
     }
 
-    func makeOrder(items: [CartItem]) -> Observable<HistoryOrder> {
+    func makeOrder(items _: [CartItem]) -> Observable<HistoryOrder> {
         return .empty()
     }
 

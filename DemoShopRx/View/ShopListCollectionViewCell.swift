@@ -5,8 +5,8 @@
 //  Created by Steven Zeng on 2024/3/23.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class ShopListCollectionViewCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
@@ -33,11 +33,12 @@ class ShopListCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setupSubview()
     }
-    
-    required init?(coder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setupSubview() {
         contentView.addSubview(imageView)
         contentView.addSubview(nameLabel)

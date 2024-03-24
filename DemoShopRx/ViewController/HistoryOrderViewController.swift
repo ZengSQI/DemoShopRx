@@ -5,11 +5,11 @@
 //  Created by Steven Zeng on 2024/3/24.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
-import RxViewController
 import RxDataSources
+import RxSwift
+import RxViewController
+import UIKit
 
 class HistoryOrderViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
@@ -39,7 +39,7 @@ class HistoryOrderViewController: UIViewController {
         section.orthogonalScrollingBehavior = .continuous
         section.boundarySupplementaryItems = [
             .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .topTrailing),
-            .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40)), elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottomTrailing)
+            .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40)), elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottomTrailing),
         ]
         let layout = UICollectionViewCompositionalLayout(section: section)
         let config = UICollectionViewCompositionalLayoutConfiguration()
@@ -49,7 +49,7 @@ class HistoryOrderViewController: UIViewController {
     }()
 
     private lazy var dataSource: RxCollectionViewSectionedReloadDataSource<HistoryOrder> = {
-        let dataSource = RxCollectionViewSectionedReloadDataSource<HistoryOrder> { dataSource, collectionView, indexPath, item in
+        let dataSource = RxCollectionViewSectionedReloadDataSource<HistoryOrder> { _, collectionView, indexPath, item in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HistoryOrderCollectionViewCell", for: indexPath) as! HistoryOrderCollectionViewCell
             cell.bind(item: item.item)
             return cell
@@ -100,7 +100,7 @@ class HistoryOrderViewController: UIViewController {
         let output = viewModel.transform(
             input: HistoryOrderViewModel.Input(
                 loadTrigger: rx.viewWillAppear
-                    .map { _ in Void() }
+                    .map { _ in () }
                     .asDriver(onErrorJustReturn: ())
             )
         )
@@ -110,4 +110,3 @@ class HistoryOrderViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 }
-

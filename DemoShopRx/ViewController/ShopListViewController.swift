@@ -5,10 +5,10 @@
 //  Created by Steven Zeng on 2024/3/22.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
 import RxViewController
+import UIKit
 
 protocol ShopListViewControllerDelegate: AnyObject {
     func shopListDidTapItem(item: ShopItem)
@@ -83,13 +83,13 @@ class ShopListViewController: UIViewController {
         let output = viewModel.transform(
             input: ShopListViewModel.Input(
                 loadTrigger: rx.viewWillAppear
-                    .map { _ in Void() }
+                    .map { _ in () }
                     .asDriver(onErrorJustReturn: ())
             )
         )
 
         output.items
-            .bind(to: collectionView.rx.items(cellIdentifier: "ShopListCollectionViewCell", cellType: ShopListCollectionViewCell.self)) { index, model, cell in
+            .bind(to: collectionView.rx.items(cellIdentifier: "ShopListCollectionViewCell", cellType: ShopListCollectionViewCell.self)) { _, model, cell in
                 cell.bind(item: model)
             }
             .disposed(by: disposeBag)
@@ -117,4 +117,3 @@ class ShopListViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 }
-

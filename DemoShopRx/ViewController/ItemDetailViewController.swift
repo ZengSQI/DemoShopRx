@@ -5,11 +5,11 @@
 //  Created by Steven Zeng on 2024/3/23.
 //
 
-import UIKit
-import RxSwiftExt
-import RxSwift
 import RxCocoa
+import RxSwift
+import RxSwiftExt
 import RxViewController
+import UIKit
 
 protocol ItemDetailViewControllerDelegate: AnyObject {
     func itemDetailDidTapPurchase(item: ShopItem)
@@ -62,7 +62,7 @@ class ItemDetailViewController: UIViewController {
             nameLabel,
             descriptionLabel,
             priceLabel,
-            createTimeLabel
+            createTimeLabel,
         ])
         stackView.axis = .vertical
         stackView.alignment = .leading
@@ -88,7 +88,7 @@ class ItemDetailViewController: UIViewController {
     private lazy var buttonStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             addToCartButton,
-            purchaseButton
+            purchaseButton,
         ])
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -190,4 +190,3 @@ class ItemDetailViewController: UIViewController {
         present(alert, animated: true)
     }
 }
-

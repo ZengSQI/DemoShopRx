@@ -5,10 +5,10 @@
 //  Created by Steven Zeng on 2024/3/24.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
 import RxViewController
+import UIKit
 
 protocol ConfirmOrderViewControllerDelegate: AnyObject {
     func confirmOrderComplete()
@@ -82,7 +82,7 @@ class ConfirmOrderViewController: UIViewController {
         )
 
         output.items
-            .bind(to: tableView.rx.items(cellIdentifier: "OrderItemTableViewCell", cellType: OrderItemTableViewCell.self)) { row, model, cell in
+            .bind(to: tableView.rx.items(cellIdentifier: "OrderItemTableViewCell", cellType: OrderItemTableViewCell.self)) { _, model, cell in
                 cell.bind(item: model)
             }
             .disposed(by: disposeBag)

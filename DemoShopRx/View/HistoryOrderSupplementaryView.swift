@@ -19,11 +19,12 @@ class HistoryOrderSupplementaryView: UICollectionReusableView {
         super.init(frame: frame)
         setupSubview()
     }
-    
-    required init?(coder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setupSubview() {
         backgroundColor = .systemGray6
         addSubview(titleLabel)

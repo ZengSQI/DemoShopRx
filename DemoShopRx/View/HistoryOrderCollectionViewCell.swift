@@ -5,8 +5,8 @@
 //  Created by Steven Zeng on 2024/3/24.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class HistoryOrderCollectionViewCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
@@ -34,7 +34,8 @@ class HistoryOrderCollectionViewCell: UICollectionViewCell {
         setupSubview()
     }
 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

@@ -5,13 +5,12 @@
 //  Created by Steven Zeng on 2024/3/22.
 //
 
-import XCTest
-import RxTest
-import RxSwift
 @testable import DemoShopRx
+import RxSwift
+import RxTest
+import XCTest
 
 final class DemoShopRxTests: XCTestCase {
-
     var disposeBag: DisposeBag!
     var service: TestMockService!
     var environment: Environment!
@@ -35,7 +34,7 @@ final class DemoShopRxTests: XCTestCase {
 
         let observer = scheduler.createObserver([ShopItem].self)
         let observable = scheduler.createHotObservable([
-            .next(1, ())
+            .next(1, ()),
         ])
 
         let output = viewModel.transform(
@@ -53,7 +52,7 @@ final class DemoShopRxTests: XCTestCase {
 
         XCTAssertEqual(observer.events, [
             .next(0, []),
-            .next(1, items)
+            .next(1, items),
         ])
     }
 
@@ -65,7 +64,7 @@ final class DemoShopRxTests: XCTestCase {
         let addedObserver = scheduler.createObserver(Void.self)
         let addObservable = scheduler.createHotObservable([
             .next(1, ()),
-            .next(2, ())
+            .next(2, ()),
         ])
 
         let output = viewModel.transform(
@@ -87,7 +86,7 @@ final class DemoShopRxTests: XCTestCase {
         scheduler.start()
 
         XCTAssertEqual(itemObserver.events, [
-            .next(0, item)
+            .next(0, item),
         ])
         XCTAssertEqual(addedObserver.events.count, 2)
     }
@@ -98,7 +97,6 @@ final class DemoShopRxTests: XCTestCase {
         let cart: [CartItem] = ShopItem.testObjects.prefix(3).map { CartItem(item: $0) }
         let cartItem1 = cart[0]
         let cartItem2 = cart[1]
-        let cartItem3 = cart[2]
 
         service.cart = cart
         let cartObserver = scheduler.createObserver([(CartItem, Bool)].self)
@@ -106,12 +104,12 @@ final class DemoShopRxTests: XCTestCase {
         let purchaseEnableObserver = scheduler.createObserver(Bool.self)
 
         let loadObservable = scheduler.createHotObservable([
-            .next(1, ())
+            .next(1, ()),
         ])
 
         let selectItemObservable = scheduler.createHotObservable([
             .next(2, cartItem1),
-            .next(3, cartItem2)
+            .next(3, cartItem2),
         ])
 
         let output = viewModel.transform(
@@ -156,7 +154,7 @@ final class DemoShopRxTests: XCTestCase {
             .next(0, []),
             .next(1, []),
             .next(2, [cartItem1]),
-            .next(3, [cartItem1, cartItem2])
+            .next(3, [cartItem1, cartItem2]),
         ])
         XCTAssertEqual(purchaseEnableObserver.events, [
             .next(0, false),
@@ -173,7 +171,7 @@ final class DemoShopRxTests: XCTestCase {
         let orderCompleteObserver = scheduler.createObserver(Void.self)
 
         let makeOrderObservable = scheduler.createHotObservable([
-            .next(1, ())
+            .next(1, ()),
         ])
         let output = viewModel.transform(
             input: ConfirmOrderViewModel.Input(
@@ -194,7 +192,7 @@ final class DemoShopRxTests: XCTestCase {
         scheduler.start()
 
         XCTAssertEqual(itemsObserver.events, [
-            .next(0, items)
+            .next(0, items),
         ])
         XCTAssertEqual(orderCompleteObserver.events.count, 1)
     }
@@ -209,7 +207,7 @@ final class DemoShopRxTests: XCTestCase {
 
         let observer = scheduler.createObserver([HistoryOrder].self)
         let observable = scheduler.createHotObservable([
-            .next(1, ())
+            .next(1, ()),
         ])
 
         let output = viewModel.transform(
@@ -227,8 +225,7 @@ final class DemoShopRxTests: XCTestCase {
 
         XCTAssertEqual(observer.events, [
             .next(0, []),
-            .next(1, orders)
+            .next(1, orders),
         ])
     }
-
 }
