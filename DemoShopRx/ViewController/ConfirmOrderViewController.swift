@@ -75,9 +75,6 @@ class ConfirmOrderViewController: UIViewController {
     private func bindViewModel() {
         let output = viewModel.transform(
             input: ConfirmOrderViewModel.Input(
-                load: rx.viewWillAppear
-                    .map { _ in Void() }
-                    .asDriver(onErrorJustReturn: ()),
                 makeOrder: makeOrderButton.rx.tap
                     .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
                     .asDriver(onErrorJustReturn: ())

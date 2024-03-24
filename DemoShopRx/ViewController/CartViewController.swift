@@ -62,7 +62,7 @@ class CartViewController: UIViewController {
     private func bindViewModel() {
         let output = viewModel.transform(
             input: CartViewModel.Input(
-                load: rx.viewWillAppear
+                loadTrigger: rx.viewWillAppear
                     .map { _ in Void() }
                     .asDriver(onErrorJustReturn: ()),
                 selectItem: tableView.rx

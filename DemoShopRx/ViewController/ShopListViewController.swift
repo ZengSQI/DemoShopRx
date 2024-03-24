@@ -82,13 +82,13 @@ class ShopListViewController: UIViewController {
     private func bindViewModel() {
         let output = viewModel.transform(
             input: ShopListViewModel.Input(
-                load: rx.viewWillAppear
+                loadTrigger: rx.viewWillAppear
                     .map { _ in Void() }
                     .asDriver(onErrorJustReturn: ())
             )
         )
 
-        output.list
+        output.items
             .bind(to: collectionView.rx.items(cellIdentifier: "ShopListCollectionViewCell", cellType: ShopListCollectionViewCell.self)) { index, model, cell in
                 cell.bind(item: model)
             }

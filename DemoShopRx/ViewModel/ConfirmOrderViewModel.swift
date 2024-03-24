@@ -10,12 +10,11 @@ import RxSwift
 
 class ConfirmOrderViewModel: ViewModelType {
     struct Input {
-        let load: Driver<Void>
         let makeOrder: Driver<Void>
     }
 
     struct Output {
-        let items: PublishRelay<[CartItem]>
+        let items: BehaviorRelay<[CartItem]>
         let totalPrice: PublishRelay<Int>
         let orderComplete: PublishRelay<Void>
     }
@@ -31,16 +30,9 @@ class ConfirmOrderViewModel: ViewModelType {
     }
 
     func transform(input: Input) -> Output {
-        let itemsRelay = PublishRelay<[CartItem]>()
+        let itemsRelay = BehaviorRelay<[CartItem]>(value: items)
         let totalPriceRelay = PublishRelay<Int>()
         let orderCompleteRelay = PublishRelay<Void>()
-
-        input.load
-            .asObservable()
-            .withUnretained(self)
-            .map { owner, _ in owner.items }
-            .bind(to: itemsRelay)
-            .disposed(by: disposeBag)
 
         itemsRelay
             .map { $0.reduce(0) { $0 + $1.item.price } }
@@ -50,7 +42,7 @@ class ConfirmOrderViewModel: ViewModelType {
         input.makeOrder
             .asObservable()
             .withUnretained(self)
-            .flatMap { owner, _ in
+            .flatMapLatest { owner, _ in
                 owner.environment.service.makeOrder(items: owner.items)
             }
             .map { _ in Void() }

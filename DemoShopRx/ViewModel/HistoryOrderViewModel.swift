@@ -10,7 +10,7 @@ import RxSwift
 
 class HistoryOrderViewModel: ViewModelType {
     struct Input {
-        let load: Driver<Void>
+        let loadTrigger: Driver<Void>
     }
 
     struct Output {
@@ -25,17 +25,17 @@ class HistoryOrderViewModel: ViewModelType {
     }
 
     func transform(input: Input) -> Output {
-        let orders = BehaviorRelay<[HistoryOrder]>(value: [])
+        let ordersRelay = BehaviorRelay<[HistoryOrder]>(value: [])
 
-        input.load
+        input.loadTrigger
             .asObservable()
             .withUnretained(self)
-            .flatMap { owner, _ in
+            .flatMapLatest { owner, _ in
                 owner.environment.service.getHistoryOrders()
             }
-            .bind(to: orders)
+            .bind(to: ordersRelay)
             .disposed(by: disposeBag)
 
-        return Output(orders: orders)
+        return Output(orders: ordersRelay)
     }
 }

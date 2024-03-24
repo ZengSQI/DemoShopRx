@@ -10,11 +10,11 @@ import RxSwift
 
 class ShopListViewModel: ViewModelType {
     struct Input {
-        let load: Driver<Void>
+        let loadTrigger: Driver<Void>
     }
 
     struct Output {
-        let list: BehaviorRelay<[ShopItem]>
+        let items: BehaviorRelay<[ShopItem]>
     }
 
     private var environment: Environment
@@ -25,17 +25,17 @@ class ShopListViewModel: ViewModelType {
     }
 
     func transform(input: Input) -> Output {
-        let list = BehaviorRelay<[ShopItem]>(value: [])
+        let itemsRelay = BehaviorRelay<[ShopItem]>(value: [])
 
-        input.load
+        input.loadTrigger
             .asObservable()
             .withUnretained(self)
-            .flatMap { owner, _ in
+            .flatMapLatest { owner, _ in
                 owner.environment.service.getList()
             }
-            .bind(to: list)
+            .bind(to: itemsRelay)
             .disposed(by: disposeBag)
 
-        return Output(list: list)
+        return Output(items: itemsRelay)
     }
 }

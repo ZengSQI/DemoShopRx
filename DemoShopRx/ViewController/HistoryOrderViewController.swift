@@ -99,7 +99,7 @@ class HistoryOrderViewController: UIViewController {
     private func bindViewModel() {
         let output = viewModel.transform(
             input: HistoryOrderViewModel.Input(
-                load: rx.viewWillAppear
+                loadTrigger: rx.viewWillAppear
                     .map { _ in Void() }
                     .asDriver(onErrorJustReturn: ())
             )

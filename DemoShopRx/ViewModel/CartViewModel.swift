@@ -10,7 +10,7 @@ import RxSwift
 
 class CartViewModel: ViewModelType {
     struct Input {
-        let load: Driver<Void>
+        let loadTrigger: Driver<Void>
         let selectItem: Driver<CartItem>
     }
 
@@ -35,10 +35,10 @@ class CartViewModel: ViewModelType {
         let itemsRelay = BehaviorRelay<[(CartItem, Bool)]>(value: [])
         let purchaseEnableRelay = BehaviorRelay<Bool>(value: false)
 
-        input.load
+        input.loadTrigger
             .asObservable()
             .withUnretained(self)
-            .flatMap { owner, _ in
+            .flatMapLatest { owner, _ in
                 owner.environment.service.getCart()
             }
             .bind(to: cardItemsRelay)
